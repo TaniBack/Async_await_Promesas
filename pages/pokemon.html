@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Batalla pokemon</title>
+</head>
+<body>
+  <div id="battle"></div>
+  <script>
+    let randomNumber = (min = 0, max) => Math.floor(Math.random()*(max - min) + min)
+    
+    // Endpoint de los pokemon
+    const urlPokemon = `https://pokeapi.co/api/v2/pokemon/${randomNumber(0, 900)}`
+    
+    // Endpoint de los perros
+    const urlPub = 'https://dog.ceo/api/breeds/image/random'
+
+    // Creamos la función que traiga Pokemons
+    const getPokemon = async () => {
+      try {
+        let response = await fetch(urlPokemon)
+        let dataPokemon = await response.json()
+        let {name, sprites} = dataPokemon
+        let pokemon = {
+          name: name,
+          image: sprites
+        }
+        return pokemon
+      }
+      catch {
+        console.log("error, pokemon")
+      }
+    }
+
+    // Creamos la función que traiga los perritos
+    const getDog = async () => {
+      try {
+        let response = await fetch(urlPub)
+        let dataPerro = await response.json()
+        let image = dataPerro.message
+        let name = image.split("/")[4]
+        let dog = {
+          name: name,
+          image: image
+        }
+        return dog
+      }
+      catch {
+        console.log("error, perrito")
+      }
+    }
+
+    // Comienza la batalla
+    const randomBattle = async () => {
+      try {
+        let pokemon = await getPokemon().then(data => data)
+        let dog = await getDog().then(data => data)
+        return document.getElementById("battle").innerHTML = 
+        `<div>
+          <p>${pokemon.name}</p>
+          <img src=${pokemon.image.front_default} alt=${pokemon.name} />
+          <p>${dog.name}</p>
+          <img src=${dog.image} alt=${dog.name} />
+         </div>`
+        console.log(pokemon, dog)
+      }
+      catch {
+        console.log("error, battle")
+      }
+    }
+    randomBattle().then(data => data)
+
+  </script>
+</body>
+</html>

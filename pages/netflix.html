@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get movies (Netflix)</title>
+  <style>
+    ul {
+      display: flex;
+      justify-content: center;
+      width: 1000px;
+    }
+    li {
+      width: 250px;
+      margin: 10px;
+      padding: 10px;
+      border-radius: 5px;
+      list-style: none;
+      background-color: antiquewhite;
+    }
+    .image {
+      width: 100%;
+      height: 125px;
+      overflow: hidden;
+      
+    }
+    .image img {
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <ul id="root"></ul>
+  </div>
+  <script>
+    let netflix = [
+      {
+        titulo: "Amanece que no es poco",
+        duracion: "2h",
+        genero: "Comedia",
+        image: "https://static3.elcorreo.com/www/multimedia/201812/26/media/cortadas/amanece-kap-U7080264749g1B-624x385@RC.jpg"
+      },
+      {
+        titulo: "Star Wars",
+        duracion: "20h",
+        genero: "Space Opera",
+        image: "https://img3.s3wfg.com/web/img/images_uploaded/c/e/starwarswallpaper12.jpg"
+      },
+      {
+        titulo: "El señor de los anillos",
+        duracion: "187h",
+        genero: "Movidas",
+        image: "https://slack-imgs.com/?c=1&o1=ro&url=https%3A%2F%2Flarepublica.pe%2Fresizer%2FPyuvG-20AyHU1mnSaoYCSEJZ6pg%3D%2F1250x735%2Ftop%2Fsmart%2Farc-anglerfish-arc2-prod-gruporepublica.s3.amazonaws.com%2Fpublic%2FXQJ4GQQSCFAQZBVWQDGGYMHJLY.png"
+      },
+    ]
+    let peliculas = netflix.map(({titulo, duracion, genero, image}) => {
+      return `<li>
+                <div class="image">
+                  <img src=${image} alt=${titulo} />
+                </div>
+                <h2>${titulo}</h2>
+                <p>${duracion}</p>
+                <p>${genero}</p>
+              </li>`
+    }).join("")
+    document.getElementById("root").innerHTML = peliculas
+  </script>
+</body>
+</html>
